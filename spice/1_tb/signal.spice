@@ -1,0 +1,20 @@
+* title: bpsk generator test
+
+*BPSK: T=2us
+V_carrier carrier 0 DC=0 sin(0.8 0.7 0.5Meg)
+V_data data 0 DC=0 pulse(-1 1 0 0 0 3u 6u)
+V_compensate compensate 0 DC=0 pulse(1.6 0 0 0 0 3u 6u) 
+B1 bpsk 0 v=v(carrier)*v(data)+v(compensate)
+
+Vclk clk GND DC=0 PULSE(0 1.8 0 0.0001n 0.0001n 6.2498n 12.5n 0)
+
+Venb1 ENB GND DC=0 PULSE( 0 1.8 0 0.00001n 0.00001n 200n 1)
+
+*Vclk clk GND DC=0 PULSE(0 1.8 0 0.00001n 0.00001n 2.499998n 5n 0)
+
+.control
+ TRAN 1n 30u
+ plot carrier data bpsk
+
+.endc
+
